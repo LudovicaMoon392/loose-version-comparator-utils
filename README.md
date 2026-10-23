@@ -32,3 +32,10 @@ When one version is a prefix of another (`1.0` vs `1.0.1`), the shorter one is
 treated as though it had an empty string in the missing slot. Empty strings
 sort before any real token, so `1.0` is less than `1.0.1`. This is deliberate;
 it keeps the rule set small and the behaviour inspectable.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
